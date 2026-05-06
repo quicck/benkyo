@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アジア地理学習アプリ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <style>
+        :root {
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-on-surface: #1D1B20;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-success: #2E7D32;
+            --md-sys-color-surface-container-low: #F7F2FA;
+        }
+
+        body {
+            font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            margin: 0;
+            padding: 0;
+        }
+
+        .m3-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0;
+        }
+
+        .m3-text-field {
+            width: 100%;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 16px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .m3-text-field:focus {
+            outline: none;
+            border: 2px solid var(--md-sys-color-primary);
+        }
+
+        .m3-button-filled {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .m3-button-outlined {
+            background-color: transparent;
+            color: var(--md-sys-color-primary);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 500;
+            border: 1px solid var(--md-sys-color-outline);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid var(--md-sys-color-primary);
+            color: var(--md-sys-color-primary);
+            background-color: var(--md-sys-color-primary-container);
+        }
+
+        .correct {
+            border-color: var(--md-sys-color-success) !important;
+            background-color: #E8F5E9 !important;
+        }
+
+        .incorrect {
+            border-color: var(--md-sys-color-error) !important;
+            background-color: #FFEBEE !important;
+        }
+
+        .result-text {
+            font-size: 0.8rem;
+            margin-top: 2px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="p-4 flex items-center gap-4 bg-white shadow-sm sticky top-0 z-10">
+        <span class="material-icons-outlined text-purple-700">quiz</span>
+        <h1 class="text-xl font-bold">アジア地理学習ドリル</h1>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 pb-32">
+        
+        <!-- タブ切り替え -->
+        <div class="flex mb-6 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+            <div id="tab1" class="tab-btn active" onclick="switchSection(1)">
+                <div class="text-xs opacity-70">Section 4</div>
+                <div>東アジア</div>
+            </div>
+            <div id="tab2" class="tab-btn" onclick="switchSection(2)">
+                <div class="text-xs opacity-70">Section 5</div>
+                <div>東南アジア</div>
+            </div>
+        </div>
+
+        <!-- セクション1: 東アジア -->
+        <div id="section1">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="m3-card">
+                    <h3 class="font-bold mb-4 flex items-center gap-2 text-purple-700">
+                        <span class="material-icons-outlined text-sm">terrain</span>自然
+                    </h3>
+                    <div id="ea-nature" class="grid grid-cols-2 gap-x-4 gap-y-3"></div>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="m3-card">
+                        <h3 class="font-bold mb-4 flex items-center gap-2 text-purple-700">
+                            <span class="material-icons-outlined text-sm">public</span>国名・地域名
+                        </h3>
+                        <div id="ea-countries" class="grid grid-cols-2 gap-x-4 gap-y-3"></div>
+                    </div>
+                    <div class="m3-card">
+                        <h3 class="font-bold mb-4 flex items-center gap-2 text-purple-700">
+                            <span class="material-icons-outlined text-sm">location_city</span>都市名
+                        </h3>
+                        <div id="ea-cities" class="grid grid-cols-2 gap-x-4 gap-y-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- セクション2: 東南アジア -->
+        <div id="section2" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="m3-card">
+                    <h3 class="font-bold mb-4 flex items-center gap-2 text-blue-700">
+                        <span class="material-icons-outlined text-sm">water</span>自然
+                    </h3>
+                    <div id="sea-nature" class="grid grid-cols-2 gap-x-4 gap-y-3"></div>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="m3-card">
+                        <h3 class="font-bold mb-4 flex items-center gap-2 text-blue-700">
+                            <span class="material-icons-outlined text-sm">flag</span>国名
+                        </h3>
+                        <div id="sea-countries" class="grid grid-cols-2 gap-x-4 gap-y-3"></div>
+                    </div>
+                    <div class="m3-card">
+                        <h3 class="font-bold mb-4 flex items-center gap-2 text-blue-700">
+                            <span class="material-icons-outlined text-sm">apartment</span>都市名
+                        </h3>
+                        <div id="sea-cities" class="grid grid-cols-2 gap-x-4 gap-y-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 固定アクションエリア -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-gray-200 flex justify-center gap-4 z-20">
+        <button onclick="resetAnswers()" class="m3-button-outlined">
+            <span class="material-icons-outlined">restart_alt</span>
+            リセット
+        </button>
+        <button onclick="checkAnswers()" class="m3-button-filled">
+            <span class="material-icons-outlined">done_all</span>
+            答え合わせ
+        </button>
+    </div>
+
+    <script>
+        const data = {
+            eastAsia: {
+                nature: [
+                    { id: 'あ', label: 'あ', ans: '大シンアンリン', type: '山脈' },
+                    { id: 'い', label: 'い', ans: 'テンシャン', type: '山脈' },
+                    { id: 'う', label: 'う', ans: 'クンルン', type: '山脈' },
+                    { id: 'え', label: 'え', ans: 'ヒマラヤ', type: '山脈' },
+                    { id: 'お', label: 'お', ans: 'チンリン', type: '山脈' },
+                    { id: 'か', label: 'か', ans: 'モンゴル', type: '高原' },
+                    { id: 'き', label: 'き', ans: 'ホワンツー', type: '高原' },
+                    { id: 'く', label: 'く', ans: 'チベット', type: '高原' },
+                    { id: 'け', label: 'け', ans: 'ゴビ', type: '砂漠' },
+                    { id: 'こ', label: 'こ', ans: 'タクラマカン', type: '砂漠' },
+                    { id: 'さ', label: 'さ', ans: '華北', type: '平原' },
+                    { id: 'し', label: 'し', ans: 'スーチョワン', type: '盆地' },
+                    { id: 'す', label: 'す', ans: '黄', type: '河' },
+                    { id: 'せ', label: 'せ', ans: 'ホワイ', type: '川' },
+                    { id: 'そ', label: 'そ', ans: '長', type: '江' },
+                    { id: 'た', label: 'た', ans: 'チュー', type: '川' },
+                    { id: 'ち', label: 'ち', ans: 'ハイナン', type: '島' }
+                ],
+                countries: [
+                    { id: 'A', label: 'A', ans: 'モンゴル' },
+                    { id: 'B', label: 'B', ans: '中国' },
+                    { id: 'C', label: 'C', ans: '北朝鮮' },
+                    { id: 'D', label: 'D', ans: '韓国' },
+                    { id: 'E', label: 'E', ans: '台湾' },
+                    { id: 'F', label: 'F', ans: 'ホンコン' },
+                    { id: 'G', label: 'G', ans: 'マカオ' }
+                ],
+                cities: [
+                    { id: '1', label: '①', ans: 'ウランバートル' },
+                    { id: '2', label: '②', ans: 'ペキン' },
+                    { id: '3', label: '③', ans: 'テンチン' },
+                    { id: '4', label: '④', ans: 'シャンハイ' },
+                    { id: '5', label: '⑤', ans: 'チョンチン' },
+                    { id: '6', label: '⑥', ans: 'ピョンヤン' },
+                    { id: '7', label: '⑦', ans: 'ソウル' },
+                    { id: '8', label: '⑧', ans: 'タイペイ' }
+                ]
+            },
+            southeastAsia: {
+                nature: [
+                    { id: 'あ', label: 'あ', ans: '南シナ', type: '海' },
+                    { id: 'い', label: 'い', ans: 'インドシナ', type: '半島' },
+                    { id: 'う', label: 'う', ans: 'マレー', type: '半島' },
+                    { id: 'え', label: 'え', ans: 'アンナン', type: '山脈' },
+                    { id: 'お', label: 'お', ans: 'メコン', type: '川' },
+                    { id: 'か', label: 'か', ans: 'チャオプラヤ', type: '川' },
+                    { id: 'き', label: 'き', ans: 'エーヤワディー', type: '川' },
+                    { id: 'く', label: 'く', ans: 'トンレサップ', type: '湖' },
+                    { id: 'け', label: 'け', ans: 'スマトラ', type: '島' },
+                    { id: 'こ', label: 'こ', ans: 'ジャワ', type: '島' },
+                    { id: 'さ', label: 'さ', ans: 'バリ', type: '島' },
+                    { id: 'し', label: 'し', ans: 'カリマンタン', type: '島' },
+                    { id: 'す', label: 'す', ans: 'スラウェシ', type: '島' },
+                    { id: 'せ', label: 'せ', ans: 'ティモール', type: '島' },
+                    { id: 'そ', label: 'そ', ans: 'ミンダナオ', type: '島' },
+                    { id: 'た', label: 'た', ans: 'ニューギニア', type: '島' },
+                    { id: 'ち', label: 'ち', ans: 'マラッカ', type: '海峡' },
+                    { id: 'つ', label: 'つ', ans: 'ロンボク', type: '海峡' }
+                ],
+                countries: [
+                    { id: 'A', label: 'A', ans: 'ミャンマー' },
+                    { id: 'B', label: 'B', ans: 'タイ' },
+                    { id: 'C', label: 'C', ans: 'ラオス' },
+                    { id: 'D', label: 'D', ans: 'カンボジア' },
+                    { id: 'E', label: 'E', ans: 'ベトナム' },
+                    { id: 'F', label: 'F', ans: 'フィリピン' },
+                    { id: 'G', label: 'G', ans: 'マレーシア' },
+                    { id: 'H', label: 'H', ans: 'シンガポール' },
+                    { id: 'I', label: 'I', ans: 'ブルネイ' },
+                    { id: 'J', label: 'J', ans: 'インドネシア' }
+                ],
+                cities: [
+                    { id: '1', label: '①', ans: 'ヤンゴン' },
+                    { id: '2', label: '②', ans: 'バンコク' },
+                    { id: '3', label: '③', ans: 'ビエンチャン' },
+                    { id: '4', label: '④', ans: 'プノンペン' },
+                    { id: '5', label: '⑤', ans: 'ハノイ' },
+                    { id: '6', label: '⑥', ans: 'ホーチミン' },
+                    { id: '7', label: '⑦', ans: 'マニラ' },
+                    { id: '8', label: '⑧', ans: 'クアラルンプール' },
+                    { id: '9', label: '⑨', ans: 'ジャカルタ' }
+                ]
+            }
+        };
+
+        function renderFields() {
+            renderGroup('ea-nature', data.eastAsia.nature, 'ea-nat');
+            renderGroup('ea-countries', data.eastAsia.countries, 'ea-coun');
+            renderGroup('ea-cities', data.eastAsia.cities, 'ea-cit');
+            renderGroup('sea-nature', data.southeastAsia.nature, 'sea-nat');
+            renderGroup('sea-countries', data.southeastAsia.countries, 'sea-coun');
+            renderGroup('sea-cities', data.southeastAsia.cities, 'sea-cit');
+        }
+
+        function renderGroup(containerId, items, prefix) {
+            const container = document.getElementById(containerId);
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'flex flex-col';
+                div.innerHTML = `
+                    <label class="text-[10px] font-bold text-gray-400 mb-0.5">${item.label} ${item.type || ''}</label>
+                    <input type="text" id="${prefix}-${item.id}" class="m3-text-field" autocomplete="off">
+                    <div id="ans-${prefix}-${item.id}" class="result-text hidden"></div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function switchSection(id) {
+            document.getElementById('section1').classList.toggle('hidden', id !== 1);
+            document.getElementById('section2').classList.toggle('hidden', id !== 2);
+            document.getElementById('tab1').classList.toggle('active', id === 1);
+            document.getElementById('tab2').classList.toggle('active', id === 2);
+        }
+
+        function checkAnswers() {
+            const isEA = !document.getElementById('section1').classList.contains('hidden');
+            if (isEA) {
+                verify('ea-nat', data.eastAsia.nature);
+                verify('ea-coun', data.eastAsia.countries);
+                verify('ea-cit', data.eastAsia.cities);
+            } else {
+                verify('sea-nat', data.southeastAsia.nature);
+                verify('sea-coun', data.southeastAsia.countries);
+                verify('sea-cit', data.southeastAsia.cities);
+            }
+        }
+
+        function verify(prefix, items) {
+            items.forEach(item => {
+                const input = document.getElementById(`${prefix}-${item.id}`);
+                const feedback = document.getElementById(`ans-${prefix}-${item.id}`);
+                const userAns = input.value.trim();
+                
+                if (userAns === item.ans) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    feedback.classList.add('hidden');
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                    feedback.innerHTML = `<span class="text-red-600">正解: ${item.ans}</span>`;
+                    feedback.classList.remove('hidden');
+                }
+            });
+        }
+
+        function resetAnswers() {
+            const inputs = document.querySelectorAll('.m3-text-field');
+            const feedbacks = document.querySelectorAll('.result-text');
+            
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            
+            feedbacks.forEach(fb => {
+                fb.classList.add('hidden');
+                fb.innerHTML = '';
+            });
+        }
+
+        window.onload = renderFields;
+    </script>
+</body>
+</html>
