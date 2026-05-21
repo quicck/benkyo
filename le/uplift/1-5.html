@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英語表現マスター - English Translation Practice</title>
+    <!-- Google Fonts & Material Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans JP', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            primary: '#0061a4',
+                            onPrimary: '#ffffff',
+                            primaryContainer: '#d1e4ff',
+                            onPrimaryContainer: '#001d36',
+                            surface: '#f8fafc',
+                            onSurface: '#1e293b',
+                            surfaceVariant: '#e2e8f0',
+                            onSurfaceVariant: '#475569',
+                            outline: '#cbd5e1',
+                            error: '#ba1a1a',
+                            errorContainer: '#ffdad6',
+                            onErrorContainer: '#410002',
+                            success: '#2e7d32',
+                            successContainer: '#c8e6c9',
+                            onSuccessContainer: '#1b5e20'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        /* Material 3 Card Shadow */
+        .m3-card {
+            box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            background-color: #ffffff;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .m3-card-interactive:hover {
+            box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        /* Ripple effect style placeholder */
+        .m3-btn {
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .m3-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- Header / Top App Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 px-4 py-3 md:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <span class="material-icons-round text-brand-primary text-3xl">translate</span>
+            <div>
+                <h1 class="font-bold text-lg md:text-xl text-slate-800 tracking-tight">英訳トレーニング</h1>
+                <p class="text-xs text-slate-500">Lesson 1 - 5 総合演習</p>
+            </div>
+        </div>
+        <div id="header-stats" class="hidden md:flex items-center gap-4 text-sm text-slate-600">
+            <span id="current-badge" class="bg-brand-primaryContainer text-brand-onPrimaryContainer px-3 py-1 rounded-full font-medium">練習中</span>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow container mx-auto px-4 py-6 md:py-10 max-w-4xl">
+        
+        <!-- Screen 1: Home / Settings Screen -->
+        <section id="screen-home" class="space-y-8">
+            <div class="m3-card p-6 md:p-8 space-y-6">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b pb-3">
+                    <span class="material-icons-round text-brand-primary">tune</span> 出題設定
+                </h3>
+
+                <!-- Lesson Selection -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-slate-700">1. レッスンを選択</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="lesson-selector">
+                        <button type="button" data-lesson="all" class="lesson-btn m3-btn border-2 border-brand-primary bg-brand-primaryContainer text-brand-onPrimaryContainer font-bold py-3 px-2 rounded-xl text-center text-sm shadow-sm">
+                            すべて
+                        </button>
+                        <button type="button" data-lesson="1" class="lesson-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Lesson 1
+                        </button>
+                        <button type="button" data-lesson="2" class="lesson-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Lesson 2
+                        </button>
+                        <button type="button" data-lesson="3" class="lesson-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Lesson 3
+                        </button>
+                        <button type="button" data-lesson="4" class="lesson-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Lesson 4
+                        </button>
+                        <button type="button" data-lesson="5" class="lesson-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Lesson 5
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step Selection -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-slate-700">2. ステップを選択</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="step-selector">
+                        <button type="button" data-step="all" class="step-btn m3-btn border-2 border-brand-primary bg-brand-primaryContainer text-brand-onPrimaryContainer font-bold py-3 px-2 rounded-xl text-center text-sm shadow-sm">
+                            すべて
+                        </button>
+                        <button type="button" data-step="Step 1" class="step-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Step 1
+                        </button>
+                        <button type="button" data-step="Step 2" class="step-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Step 2
+                        </button>
+                        <button type="button" data-step="Step 3" class="step-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm">
+                            Step 3
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Start and View List Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <button id="btn-start" class="flex-1 m3-btn bg-brand-primary hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2 shadow-md">
+                        <span class="material-icons-round">play_arrow</span>
+                        <span>演習をスタートする</span>
+                    </button>
+                    <button id="btn-show-all-list" class="sm:w-auto m3-btn border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2">
+                        <span class="material-icons-round">table_chart</span>
+                        <span>問題一覧表を見る</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 2: Practice (Questioning) Screen -->
+        <section id="screen-practice" class="hidden space-y-6">
+            <!-- Progress Bar and Info -->
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between text-sm">
+                    <span id="practice-current-range" class="font-bold text-brand-primary">Lesson 1 - Step 1</span>
+                    <span id="practice-progress-text" class="text-slate-500 font-medium">1 / 10 問目</span>
+                </div>
+                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div id="practice-progress-bar" class="bg-brand-primary h-full transition-all duration-300" style="width: 10%;"></div>
+                </div>
+            </div>
+
+            <!-- Main Question Card -->
+            <div class="m3-card p-6 md:p-8 space-y-6">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span id="badge-question-num" class="text-xs font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md">Q1</span>
+                        <span id="badge-question-origin" class="text-xs font-bold bg-blue-50 text-blue-600 px-2.5 py-1 rounded-md">Lesson 1 Step 1 (1)</span>
+                    </div>
+                    <div id="question-ja" class="text-lg md:text-xl font-bold text-slate-800 leading-relaxed pt-2">
+                        日本語の問題文がここに表示されます。
+                    </div>
+                </div>
+
+                <!-- Answer Input Area -->
+                <div class="space-y-3">
+                    <label for="input-answer" class="block text-sm font-bold text-slate-600">英訳解答入力</label>
+                    <textarea id="input-answer" rows="3" class="w-full p-4 border-2 border-slate-300 rounded-xl focus:border-brand-primary focus:outline-none transition-colors text-base md:text-lg font-mono tracking-wide placeholder:text-slate-400 placeholder:not-mono" placeholder="英文を正確に入力してください（大文字小文字・ピリオド等に注意）"></textarea>
+                </div>
+
+                <!-- Feedback Area (Shown after submit) -->
+                <div id="feedback-panel" class="hidden p-4 rounded-xl space-y-3 transition-all">
+                    <div class="flex items-center gap-2 font-bold text-lg" id="feedback-result">
+                        <span class="material-icons-round" id="feedback-icon">check_circle</span>
+                        <span id="feedback-status-text">正解！</span>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block text-xs font-bold text-slate-500">あなたの解答:</span>
+                        <p id="feedback-user-ans" class="text-slate-800 font-mono text-sm bg-white/70 p-2 rounded border border-slate-200 break-all"></p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block text-xs font-bold text-slate-500">正解の英文:</span>
+                        <p id="feedback-correct-ans" class="text-brand-onPrimaryContainer font-mono text-base md:text-lg font-bold bg-white/90 p-3 rounded border border-slate-300 break-all"></p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons inside card -->
+                <div class="flex justify-end gap-3 pt-2">
+                    <button id="btn-quit" class="m3-btn text-slate-600 hover:bg-slate-100 font-bold px-5 py-3 rounded-xl flex items-center gap-2 text-sm">
+                        <span class="material-icons-round">exit_to_app</span> 中断して戻る
+                    </button>
+                    <button id="btn-submit" class="m3-btn bg-brand-primary hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 text-sm shadow">
+                        <span>解答を確認する</span> <span class="material-icons-round">check</span>
+                    </button>
+                    <button id="btn-next" class="hidden m3-btn bg-brand-primary hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 text-sm shadow">
+                        <span>次の問題へ</span> <span class="material-icons-round">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 3: Results Screen -->
+        <section id="screen-results" class="hidden space-y-6">
+            <div class="text-center py-4 space-y-3">
+                <span class="material-icons-round text-brand-primary text-6xl">emoji_events</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">演習結果</h2>
+                <p id="result-summary" class="text-slate-600 text-lg">
+                    12問中 <strong>10問正解</strong> でした！
+                </p>
+                <div class="inline-block bg-brand-primaryContainer text-brand-onPrimaryContainer px-4 py-2 rounded-full font-bold" id="result-score-badge">
+                    正解率: 83.3%
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button id="btn-retry-same" class="flex-1 sm:flex-none m3-btn bg-brand-primary hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2 shadow-md">
+                    <span class="material-icons-round">replay</span>
+                    <span>同じ設定でもう一度</span>
+                </button>
+                <button id="btn-back-home" class="flex-1 sm:flex-none m3-btn border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2">
+                    <span class="material-icons-round">home</span>
+                    <span>トップに戻る</span>
+                </button>
+            </div>
+
+            <!-- Detailed feedback list -->
+            <div class="m3-card p-6 md:p-8 space-y-6">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-3">今回の解答一覧</h3>
+                <div class="divide-y divide-slate-100" id="result-items-container">
+                    <!-- Javascript will insert result items here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 4: All Words & Sentences Reference Table Screen -->
+        <section id="screen-table-list" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <button id="btn-back-home-from-table" class="m3-btn border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold py-2.5 px-4 rounded-xl flex items-center gap-1.5 text-sm">
+                    <span class="material-icons-round">arrow_back</span>
+                    <span>トップに戻る</span>
+                </button>
+                <h2 class="text-xl font-bold text-slate-800">全問題一覧表</h2>
+            </div>
+
+            <!-- Filter on Table -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-wrap gap-3 items-center">
+                <span class="text-sm font-bold text-slate-600">表示フィルタ:</span>
+                <select id="table-filter-lesson" class="bg-slate-50 border border-slate-300 text-slate-700 py-1.5 px-3 rounded-lg text-sm focus:outline-none focus:border-brand-primary">
+                    <option value="all">すべてのLesson</option>
+                    <option value="1">Lesson 1</option>
+                    <option value="2">Lesson 2</option>
+                    <option value="3">Lesson 3</option>
+                    <option value="4">Lesson 4</option>
+                    <option value="5">Lesson 5</option>
+                </select>
+                <select id="table-filter-step" class="bg-slate-50 border border-slate-300 text-slate-700 py-1.5 px-3 rounded-lg text-sm focus:outline-none focus:border-brand-primary">
+                    <option value="all">すべてのStep</option>
+                    <option value="Step 1">Step 1</option>
+                    <option value="Step 2">Step 2</option>
+                    <option value="Step 3">Step 3</option>
+                </select>
+            </div>
+
+            <!-- Table Container -->
+            <div class="m3-card overflow-hidden">
+                <div class="overflow-x-auto max-h-[70vh]">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-100 sticky top-0 border-b border-slate-200 shadow-sm">
+                            <tr>
+                                <th class="p-3 text-sm font-bold text-slate-700 w-1/12 whitespace-nowrap">ID</th>
+                                <th class="p-3 text-sm font-bold text-slate-700 w-2/12 whitespace-nowrap">場所</th>
+                                <th class="p-3 text-sm font-bold text-slate-700 w-4/12">日本語問題文</th>
+                                <th class="p-3 text-sm font-bold text-slate-700 w-5/12">解答（英語）</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-questions-table-body" class="divide-y divide-slate-100">
+                            <!-- Javascript will inject table rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- App State and Logic Script -->
+    <script>
+        // Full Dataset
+        const allQuestions = [
+            // Lesson 1
+            { id: 1, lesson: 1, step: "Step 1", num: "(1)", ja: "兄は、来年、大学を卒業する。", en: "My brother will graduate from university next year." },
+            { id: 2, lesson: 1, step: "Step 1", num: "(2)", ja: "ダンは私に結婚しようと言い、私はそれを受け入れた。", en: "Dan asked me to marry him, and I accepted." },
+            { id: 3, lesson: 1, step: "Step 1", num: "(3)", ja: "優れたリーダーなら、自分が間違っている場合はチームに謝るべきだ。", en: "A good leader should apologize to the team if he or she is wrong." },
+            { id: 4, lesson: 1, step: "Step 1", num: "(4)", ja: "彼女はその本を慎重に自分の机に置いた。", en: "She laid the book carefully on her desk." },
+            { id: 5, lesson: 1, step: "Step 2", num: "(1)", ja: "彼は働きすぎて日中ベッドに横になった。", en: "He lay down on the bed during the day due to overwork." },
+            { id: 6, lesson: 1, step: "Step 2", num: "(2)", ja: "EUの多くの人々は、米国の人々といくつかの共通の価値観をもっている。", en: "Many people in the EU agree with those in the U.S. on several common values." },
+            { id: 7, lesson: 1, step: "Step 2", num: "(3)", ja: "私の留学計画は奨学金を得られるかどうかにかかっている。", en: "My plans for studying abroad depend on whether I can get a scholarship." },
+            { id: 8, lesson: 1, step: "Step 2", num: "(4)", ja: "姉はいつも母に僕の文句を言う。", en: "My sister always complains to our mother about me." },
+            { id: 9, lesson: 1, step: "Step 3", num: "(1)", ja: "私はすべての質問に日本語で答えることができた。", en: "I was able to answer all the questions in Japanese." },
+            { id: 10, lesson: 1, step: "Step 3", num: "(2)", ja: "もし留学したいなら、奨学金に応募するといいよ。", en: "If you want to study abroad, you should apply for a scholarship." },
+            { id: 11, lesson: 1, step: "Step 3", num: "(3)", ja: "なぜ奇跡を信じる人がいるのかについて話し合おう。", en: "Let's discuss why some people believe in miracles." },
+            { id: 12, lesson: 1, step: "Step 3", num: "(4)", ja: "何か質問があれば手を挙げなさい。", en: "Raise your hand if you have any questions." },
+
+            // Lesson 2
+            { id: 13, lesson: 2, step: "Step 1", num: "(1)", ja: "みんながしゃべっているが、誰もが互いの話を聞いていない。", en: "Everyone is talking but no one is listening to each other." },
+            { id: 14, lesson: 2, step: "Step 1", num: "(2)", ja: "ほとんどの人には1日約8時間の睡眠が必要なようだ。", en: "Most people seem to need about eight hours of sleep a day." },
+            { id: 15, lesson: 2, step: "Step 1", num: "(3)", ja: "そこには誰もいなかった。", en: "There was no one there." },
+            { id: 16, lesson: 2, step: "Step 1", num: "(4)", ja: "動物と違って、人間は言葉で自分の気持ちを表現できる。", en: "Unlike animals, humans can describe their feelings." },
+            { id: 17, lesson: 2, step: "Step 2", num: "(1)", ja: "リーダーシップとは、ビジョンと誠実さをもって他者を励ますことから成る。", en: "Leadership consists of encouraging others with vision and integrity." },
+            { id: 18, lesson: 2, step: "Step 2", num: "(2)", ja: "説明書には、ボタンを5秒間押すように書いてある。", en: "The instructions say that you should press the button for five seconds." },
+            { id: 19, lesson: 2, step: "Step 2", num: "(3)", ja: "口の中にアルミホイルがあって、それを噛んだんだ。", en: "There was some aluminum foil in my mouth and I bit it." },
+            { id: 20, lesson: 2, step: "Step 2", num: "(4)", ja: "多くの日本の若者は、Tシャツに書かれた英語のメッセージなど気にも留めない。", en: "A lot of young Japanese people do not care about the messages in English on their T-shirts." },
+            { id: 21, lesson: 2, step: "Step 3", num: "(1)", ja: "健康でいたいなら、自分自身を大切にしなければならない。", en: "If you want to stay healthy, you have to take good care of yourself." },
+            { id: 22, lesson: 2, step: "Step 3", num: "(2)", ja: "コーヒーが好きな人もいれば、紅茶が好きな人もいる。", en: "Some people like coffee and others like tea." },
+            { id: 23, lesson: 2, step: "Step 3", num: "(3)", ja: "喫煙は私たちに害を及ぼすということを心に留めておかなければならない。", en: "We must keep in mind that smoking does us harm." },
+            { id: 24, lesson: 2, step: "Step 3", num: "(4)", ja: "子供は、自分の考えを言い表すのに適切な言葉を見つける際に苦労することがよくある。", en: "Children often have trouble in finding the right words to express themselves." },
+
+            // Lesson 3
+            { id: 25, lesson: 3, step: "Step 1", num: "(1)", ja: "私は毎晩洗顔をして化粧水をつけている。", en: "I wash my face and put on lotion every night." },
+            { id: 26, lesson: 3, step: "Step 1", num: "(2)", ja: "彼は普段はコンタクトだが、今日は眼鏡をかけている。", en: "He usually wears contact lenses, but he is wearing glasses today." },
+            { id: 27, lesson: 3, step: "Step 1", num: "(3)", ja: "彼女はアパートで一人暮らしをしている。", en: "She lives alone in an apartment." },
+            { id: 28, lesson: 3, step: "Step 1", num: "(4)", ja: "もし君が私たちに嘘をついているのなら、君は私たちの信頼を裏切っているということだ。", en: "If you lie to us, you are betraying our trust." },
+            { id: 29, lesson: 3, step: "Step 2", num: "(1)", ja: "その髪型、すごく似合っているね。", en: "Your hairstyle looks really good on you." },
+            { id: 30, lesson: 3, step: "Step 2", num: "(2)", ja: "日本食は世界中で人気になりつつある。", en: "Japanese food is becoming popular around the world." },
+            { id: 31, lesson: 3, step: "Step 2", num: "(3)", ja: "マユは毎授業後必ず先生たちに質問をしている。", en: "Mayu always asks her teachers questions after every class." },
+            { id: 32, lesson: 3, step: "Step 2", num: "(4)", ja: "友だちを京都案内して回って、くたくただ。", en: "I am very tired from showing a friend around Kyoto." },
+            { id: 33, lesson: 3, step: "Step 3", num: "(1)", ja: "彼女は今ハリーとロンの宿題を手伝っている。", en: "She is helping Harry and Ron with their homework now." },
+            { id: 34, lesson: 3, step: "Step 3", num: "(2)", ja: "日本では新学期は4月から始まる。", en: "The new school year begins in April in Japan." },
+            { id: 35, lesson: 3, step: "Step 3", num: "(3)", ja: "シゲは、将来留学したいと思っている。", en: "Shige wants to study abroad in the future." },
+            { id: 36, lesson: 3, step: "Step 3", num: "(4)", ja: "毎日不満を感じているなら、努力が足りないということだ。", en: "If you feel dissatisfied every day, you are not working hard enough." },
+
+            // Lesson 4
+            { id: 37, lesson: 4, step: "Step 1", num: "(1)", ja: "大学に入ってから一人暮らしをするようになった。", en: "I have lived by myself since I entered university." },
+            { id: 38, lesson: 4, step: "Step 1", num: "(2)", ja: "ここ数年、物価が上がってお金の価値が下がっている。", en: "Over the past few years, prices have gone up and the value of money has gone down." },
+            { id: 39, lesson: 4, step: "Step 1", num: "(3)", ja: "私はこれまで日本に行ったことがない。", en: "I have never been to Japan until now." },
+            { id: 40, lesson: 4, step: "Step 1", num: "(4)", ja: "昔、チリで巨大な地震が起こったことがある。", en: "A huge earthquake happened in Chili a long time ago." },
+            { id: 41, lesson: 4, step: "Step 2", num: "(1)", ja: "知り合ってどのくらいですか。", en: "How long have you known each other?" },
+            { id: 42, lesson: 4, step: "Step 2", num: "(2)", ja: "あのイタリア料理店が開店して1年以上が経つ。", en: "That Italian restaurant has been open for more than a year." },
+            { id: 43, lesson: 4, step: "Step 2", num: "(3)", ja: "私が出会った中で最高の犬の1匹について話そう。", en: "Let me tell you about one of the best dogs that I have ever met." },
+            { id: 44, lesson: 4, step: "Step 2", num: "(4)", ja: "ここ数年で私たちの周りにはとんでもない数のフェイクニュースが出回るようになった。", en: "There has been a tremendous amount of fake news around us in the last few years." },
+            { id: 45, lesson: 4, step: "Step 3", num: "(1)", ja: "東京に住んでいた時、その映画を3回見たことがある。", en: "I saw the movie three times when I lived in Tokyo." },
+            { id: 46, lesson: 4, step: "Step 3", num: "(2)", ja: "スティーブ（Steve）はまだどの宿題もやり始めてすらいない。", en: "Steve has not even started any of his homework yet." },
+            { id: 47, lesson: 4, step: "Step 3", num: "(3)", ja: "シゲは学校を卒業したら留学することにすでに決めている。", en: "Shige has already decided to study abroad after he graduates from school." },
+            { id: 48, lesson: 4, step: "Step 3", num: "(4)", ja: "これは今まで食べた中でいちばんおいしい唐揚げだ。", en: "This is the best deep-fried chicken that I have ever had." },
+
+            // Lesson 5
+            { id: 49, lesson: 5, step: "Step 1", num: "(1)", ja: "1970年には、テレビはニュースの情報源として最も広く使われるようになっていた。", en: "By 1970 television had become the most widely-used source for news." },
+            { id: 50, lesson: 5, step: "Step 1", num: "(2)", ja: "駅のホームに着くと電車はもう到着していた。", en: "The train had already arrived when I reached the platform." },
+            { id: 51, lesson: 5, step: "Step 1", num: "(3)", ja: "3年後には、私は二十歳になる。", en: "In three years, I will be twenty years old." },
+            { id: 52, lesson: 5, step: "Step 1", num: "(4)", ja: "どこかにスマホを落としていたことに気づいた。", en: "I realized I had dropped my smartphone somewhere." },
+            { id: 53, lesson: 5, step: "Step 2", num: "(1)", ja: "私は彼の表情から、そんなことは何百回も聞いたことがあるんだとわかった。", en: "I could tell from the look on his face that he had heard that hundreds of times before." },
+            { id: 54, lesson: 5, step: "Step 2", num: "(2)", ja: "1週間毎日1日中勉強していたので、試験のあと、疲れた。", en: "I was tired after the exams, because I had been studying all day long for a week." },
+            { id: 55, lesson: 5, step: "Step 2", num: "(3)", ja: "この大学に入学したら夏休みに海外旅行をするつもりだ。", en: "I will travel abroad during the summer vacation after I enter this university." },
+            { id: 56, lesson: 5, step: "Step 2", num: "(4)", ja: "加藤先生はユリに、あなたは前にも同じ質問をしたことがあると言った。", en: "Ms. Kato told Yuri that she had asked the same question before." },
+            { id: 57, lesson: 5, step: "Step 3", num: "(1)", ja: "私は宝石のことはよく知らなかったが、そのダイヤモンドが本物だというのは疑わしいと思った。", en: "I didn't know much about jewelry, but I doubted that the diamond was real." },
+            { id: 58, lesson: 5, step: "Step 3", num: "(2)", ja: "いつの間にかフライトは終わっていた。", en: "The flight was over before I knew it." },
+            { id: 59, lesson: 5, step: "Step 3", num: "(3)", ja: "（早めにチケット売り場に着いたが）その公演のチケットはすでに売り切れだと言われた。", en: "We arrived early at the ticket office, but we were told that all the tickets for the show had already been sold out." },
+            { id: 60, lesson: 5, step: "Step 3", num: "(4)", ja: "もし明日も雨が降り続いたら、1週間雨が降っていることになる。", en: "If it continues raining tomorrow, it will have been raining for a week." }
+        ];
+
+        // App States
+        let currentLessonSelection = "all"; // "all" or "1", "2", "3", "4", "5"
+        let currentStepSelection = "all"; // "all" or "Step 1", "Step 2", "Step 3"
+        let activeQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let sessionResults = []; // stores: { question, userAns, isCorrect }
+
+        // Elements
+        const screens = {
+            home: document.getElementById("screen-home"),
+            practice: document.getElementById("screen-practice"),
+            results: document.getElementById("screen-results"),
+            tableList: document.getElementById("screen-table-list")
+        };
+
+        const elements = {
+            lessonSelector: document.getElementById("lesson-selector"),
+            stepSelector: document.getElementById("step-selector"),
+            btnStart: document.getElementById("btn-start"),
+            btnShowAllList: document.getElementById("btn-show-all-list"),
+            btnBackHomeFromTable: document.getElementById("btn-back-home-from-table"),
+            btnBackHome: document.getElementById("btn-back-home"),
+            btnRetrySame: document.getElementById("btn-retry-same"),
+            
+            // Practice Screen
+            practiceCurrentRange: document.getElementById("practice-current-range"),
+            practiceProgressText: document.getElementById("practice-progress-text"),
+            practiceProgressBar: document.getElementById("practice-progress-bar"),
+            badgeQuestionNum: document.getElementById("badge-question-num"),
+            badgeQuestionOrigin: document.getElementById("badge-question-origin"),
+            questionJa: document.getElementById("question-ja"),
+            inputAnswer: document.getElementById("input-answer"),
+            feedbackPanel: document.getElementById("feedback-panel"),
+            feedbackResult: document.getElementById("feedback-result"),
+            feedbackIcon: document.getElementById("feedback-icon"),
+            feedbackStatusText: document.getElementById("feedback-status-text"),
+            feedbackUserAns: document.getElementById("feedback-user-ans"),
+            feedbackCorrectAns: document.getElementById("feedback-correct-ans"),
+            btnQuit: document.getElementById("btn-quit"),
+            btnSubmit: document.getElementById("btn-submit"),
+            btnNext: document.getElementById("btn-next"),
+
+            // Results Screen
+            resultSummary: document.getElementById("result-summary"),
+            resultScoreBadge: document.getElementById("result-score-badge"),
+            resultItemsContainer: document.getElementById("result-items-container"),
+
+            // Table List Screen
+            allQuestionsTableBody: document.getElementById("all-questions-table-body"),
+            tableFilterLesson: document.getElementById("table-filter-lesson"),
+            tableFilterStep: document.getElementById("table-filter-step"),
+
+            // General
+            headerStats: document.getElementById("header-stats"),
+            currentBadge: document.getElementById("current-badge")
+        };
+
+        // Initialize Home Button Listeners
+        function initSelectors() {
+            // Lesson selection
+            elements.lessonSelector.addEventListener("click", (e) => {
+                const btn = e.target.closest(".lesson-btn");
+                if (!btn) return;
+                
+                document.querySelectorAll(".lesson-btn").forEach(el => {
+                    el.className = "lesson-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm";
+                });
+                
+                btn.className = "lesson-btn m3-btn border-2 border-brand-primary bg-brand-primaryContainer text-brand-onPrimaryContainer font-bold py-3 px-2 rounded-xl text-center text-sm shadow-sm";
+                currentLessonSelection = btn.dataset.lesson;
+            });
+
+            // Step selection
+            elements.stepSelector.addEventListener("click", (e) => {
+                const btn = e.target.closest(".step-btn");
+                if (!btn) return;
+
+                document.querySelectorAll(".step-btn").forEach(el => {
+                    el.className = "step-btn m3-btn border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 px-2 rounded-xl text-center text-sm";
+                });
+
+                btn.className = "step-btn m3-btn border-2 border-brand-primary bg-brand-primaryContainer text-brand-onPrimaryContainer font-bold py-3 px-2 rounded-xl text-center text-sm shadow-sm";
+                currentStepSelection = btn.dataset.step;
+            });
+        }
+
+        // Screen switching helper
+        function showScreen(screenId) {
+            Object.keys(screens).forEach(key => {
+                if (key === screenId) {
+                    screens[key].classList.remove("hidden");
+                } else {
+                    screens[key].classList.add("hidden");
+                }
+            });
+
+            // Header state updates
+            if (screenId === "home") {
+                elements.headerStats.classList.add("hidden");
+            } else {
+                elements.headerStats.classList.remove("hidden");
+                if (screenId === "practice") {
+                    elements.currentBadge.textContent = "練習中";
+                    elements.currentBadge.className = "bg-brand-primaryContainer text-brand-onPrimaryContainer px-3 py-1 rounded-full font-medium text-xs";
+                } else if (screenId === "results") {
+                    elements.currentBadge.textContent = "結果";
+                    elements.currentBadge.className = "bg-brand-successContainer text-brand-onSuccessContainer px-3 py-1 rounded-full font-medium text-xs";
+                } else if (screenId === "tableList") {
+                    elements.currentBadge.textContent = "一覧表";
+                    elements.currentBadge.className = "bg-slate-200 text-slate-700 px-3 py-1 rounded-full font-medium text-xs";
+                }
+            }
+        }
+
+        // Prepare Questions based on selection
+        function prepareQuestions() {
+            let list = [...allQuestions];
+
+            if (currentLessonSelection !== "all") {
+                const lessonNum = parseInt(currentLessonSelection, 10);
+                list = list.filter(q => q.lesson === lessonNum);
+            }
+
+            if (currentStepSelection !== "all") {
+                list = list.filter(q => q.step === currentStepSelection);
+            }
+
+            // Shuffle questions to make it active and fun
+            activeQuestions = shuffleArray(list);
+            currentQuestionIndex = 0;
+            score = 0;
+            sessionResults = [];
+        }
+
+        // Shuffle utility
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Start Practice
+        function startPractice() {
+            prepareQuestions();
+            if (activeQuestions.length === 0) {
+                alert("選択された範囲の質問が見つかりませんでした。設定を確認してください。");
+                return;
+            }
+            showScreen("practice");
+            renderQuestion();
+        }
+
+        // Render Current Question
+        function renderQuestion() {
+            const currentQ = activeQuestions[currentQuestionIndex];
+            
+            // Text values
+            const total = activeQuestions.length;
+            const currentNum = currentQuestionIndex + 1;
+            
+            elements.practiceCurrentRange.textContent = `Lesson ${currentQ.lesson} - ${currentQ.step}`;
+            elements.practiceProgressText.textContent = `${currentNum} / ${total} 問目`;
+            
+            // Progress Bar
+            const percent = (currentNum / total) * 100;
+            elements.practiceProgressBar.style.width = `${percent}%`;
+
+            elements.badgeQuestionNum.textContent = `Q${currentNum}`;
+            elements.badgeQuestionOrigin.textContent = `Lesson ${currentQ.lesson} ${currentQ.step} ${currentQ.num}`;
+            elements.questionJa.textContent = currentQ.ja;
+
+            // Reset inputs & buttons
+            elements.inputAnswer.value = "";
+            elements.inputAnswer.disabled = false;
+            elements.inputAnswer.focus();
+            
+            elements.feedbackPanel.classList.add("hidden");
+            elements.btnSubmit.classList.remove("hidden");
+            elements.btnNext.classList.add("hidden");
+        }
+
+        // Clean text for comparing
+        function normalizeString(str) {
+            return str
+                .trim()
+                .toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "") // Remove punctuation
+                .replace(/\s+/g, " "); // Collapse multiple spaces
+        }
+
+        // Check Answer
+        function checkAnswer() {
+            const currentQ = activeQuestions[currentQuestionIndex];
+            const userAnswer = elements.inputAnswer.value.trim();
+            
+            if (!userAnswer) {
+                // Shake or alert without using browser alert
+                elements.inputAnswer.classList.add("border-brand-error");
+                setTimeout(() => elements.inputAnswer.classList.remove("border-brand-error"), 500);
+                return;
+            }
+
+            const cleanUser = normalizeString(userAnswer);
+            const cleanCorrect = normalizeString(currentQ.en);
+            
+            const isCorrect = (cleanUser === cleanCorrect);
+
+            if (isCorrect) {
+                score++;
+                elements.feedbackPanel.className = "p-4 rounded-xl space-y-3 bg-brand-successContainer text-brand-onSuccessContainer border border-emerald-300";
+                elements.feedbackStatusText.textContent = "正解です！";
+                elements.feedbackIcon.textContent = "check_circle";
+                elements.feedbackIcon.className = "material-icons-round text-emerald-600";
+            } else {
+                elements.feedbackPanel.className = "p-4 rounded-xl space-y-3 bg-brand-errorContainer text-brand-onErrorContainer border border-red-200";
+                elements.feedbackStatusText.textContent = "おしい！間違っています。";
+                elements.feedbackIcon.textContent = "cancel";
+                elements.feedbackIcon.className = "material-icons-round text-red-600";
+            }
+
+            elements.feedbackUserAns.textContent = userAnswer || "(入力なし)";
+            elements.feedbackCorrectAns.textContent = currentQ.en;
+
+            // Log results
+            sessionResults.push({
+                question: currentQ,
+                userAns: userAnswer,
+                isCorrect: isCorrect
+            });
+
+            // Toggle views
+            elements.inputAnswer.disabled = true;
+            elements.feedbackPanel.classList.remove("hidden");
+            elements.btnSubmit.classList.add("hidden");
+            elements.btnNext.classList.remove("hidden");
+
+            // Change button text if it is the last question
+            if (currentQuestionIndex === activeQuestions.length - 1) {
+                elements.btnNext.innerHTML = `<span>結果を見る</span> <span class="material-icons-round">analytics</span>`;
+            } else {
+                elements.btnNext.innerHTML = `<span>次の問題へ</span> <span class="material-icons-round">arrow_forward</span>`;
+            }
+        }
+
+        // Next Question or Show Results
+        function handleNext() {
+            if (currentQuestionIndex < activeQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show Final Results
+        function showResults() {
+            showScreen("results");
+            
+            const total = activeQuestions.length;
+            const percentage = ((score / total) * 100).toFixed(1);
+
+            elements.resultSummary.innerHTML = `${total}問中 <strong class="text-brand-primary text-xl">${score}問正解</strong> でした！`;
+            elements.resultScoreBadge.textContent = `正解率: ${percentage}%`;
+
+            // Style badge based on performance
+            if (percentage >= 80) {
+                elements.resultScoreBadge.className = "inline-block bg-brand-successContainer text-brand-onSuccessContainer px-4 py-2 rounded-full font-bold text-sm shadow-sm";
+            } else if (percentage >= 50) {
+                elements.resultScoreBadge.className = "inline-block bg-brand-primaryContainer text-brand-onPrimaryContainer px-4 py-2 rounded-full font-bold text-sm shadow-sm";
+            } else {
+                elements.resultScoreBadge.className = "inline-block bg-brand-errorContainer text-brand-onErrorContainer px-4 py-2 rounded-full font-bold text-sm shadow-sm";
+            }
+
+            // Render result list
+            elements.resultItemsContainer.innerHTML = "";
+            sessionResults.forEach((res, index) => {
+                const itemDiv = document.createElement("div");
+                itemDiv.className = "py-4 flex flex-col gap-2";
+
+                const isCorrectBadge = res.isCorrect 
+                    ? `<span class="flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200"><span class="material-icons-round text-sm">check_circle</span>正解</span>`
+                    : `<span class="flex items-center gap-1 text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full border border-red-200"><span class="material-icons-round text-sm">cancel</span>不正解</span>`;
+
+                itemDiv.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-500">Q${index+1}. Lesson ${res.question.lesson} ${res.question.step} ${res.question.num}</span>
+                        ${isCorrectBadge}
+                    </div>
+                    <div class="text-sm font-bold text-slate-800">${res.question.ja}</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono mt-1">
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                            <span class="block text-[10px] text-slate-400 font-sans font-bold uppercase tracking-wider mb-1">あなたの解答:</span>
+                            <span class="${res.isCorrect ? 'text-emerald-700' : 'text-red-700'} break-all font-semibold">${res.userAns || '(未入力)'}</span>
+                        </div>
+                        <div class="bg-blue-50/50 p-2.5 rounded border border-blue-100">
+                            <span class="block text-[10px] text-blue-400 font-sans font-bold uppercase tracking-wider mb-1">模範解答:</span>
+                            <span class="text-brand-primary break-all font-semibold">${res.question.en}</span>
+                        </div>
+                    </div>
+                `;
+                elements.resultItemsContainer.appendChild(itemDiv);
+            });
+        }
+
+        // Render Table list of all questions
+        function renderAllQuestionsTable() {
+            const selectedLesson = elements.tableFilterLesson.value;
+            const selectedStep = elements.tableFilterStep.value;
+
+            elements.allQuestionsTableBody.innerHTML = "";
+
+            let filtered = [...allQuestions];
+            if (selectedLesson !== "all") {
+                filtered = filtered.filter(q => q.lesson === parseInt(selectedLesson, 10));
+            }
+            if (selectedStep !== "all") {
+                filtered = filtered.filter(q => q.step === selectedStep);
+            }
+
+            if (filtered.length === 0) {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td colspan="4" class="p-8 text-center text-slate-400 text-sm">
+                        条件に一致する問題がありません。
+                    </td>
+                `;
+                elements.allQuestionsTableBody.appendChild(tr);
+                return;
+            }
+
+            filtered.forEach(q => {
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-3 text-xs font-semibold text-slate-400 font-mono">#${q.id}</td>
+                    <td class="p-3 text-xs font-bold text-slate-500 whitespace-nowrap">L${q.lesson} ${q.step} ${q.num}</td>
+                    <td class="p-3 text-sm font-medium text-slate-800 leading-relaxed">${q.ja}</td>
+                    <td class="p-3 text-sm font-bold text-brand-primary font-mono leading-relaxed">${q.en}</td>
+                `;
+                elements.allQuestionsTableBody.appendChild(tr);
+            });
+        }
+
+        // Event Listeners Registration
+        function registerEventListeners() {
+            // Screen switches
+            elements.btnStart.addEventListener("click", startPractice);
+            
+            elements.btnShowAllList.addEventListener("click", () => {
+                renderAllQuestionsTable();
+                showScreen("tableList");
+            });
+
+            elements.btnBackHomeFromTable.addEventListener("click", () => showScreen("home"));
+            elements.btnBackHome.addEventListener("click", () => showScreen("home"));
+            
+            elements.btnRetrySame.addEventListener("click", () => {
+                startPractice();
+            });
+
+            // Practice mechanics
+            elements.btnSubmit.addEventListener("click", checkAnswer);
+            elements.btnNext.addEventListener("click", handleNext);
+            
+            elements.btnQuit.addEventListener("click", () => {
+                if (confirm("現在進行中の練習を中断し、トップに戻りますか？")) {
+                    showScreen("home");
+                }
+            });
+
+            // Enter key shortcut in textarea
+            elements.inputAnswer.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    if (!elements.btnSubmit.classList.contains("hidden")) {
+                        checkAnswer();
+                    } else if (!elements.btnNext.classList.contains("hidden")) {
+                        handleNext();
+                    }
+                }
+            });
+
+            // Table Filters
+            elements.tableFilterLesson.addEventListener("change", renderAllQuestionsTable);
+            elements.tableFilterStep.addEventListener("change", renderAllQuestionsTable);
+        }
+
+        // Run when DOM fully loaded
+        window.addEventListener("DOMContentLoaded", () => {
+            initSelectors();
+            registerEventListeners();
+            showScreen("home");
+        });
+    </script>
+</body>
+</html>
