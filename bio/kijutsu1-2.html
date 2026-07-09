@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生物 論述演習 20問</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+            background-color: #fcfdfe;
+            min-height: 100vh;
+        }
+
+        /* 横幅やレイアウトが絶対に変化しない静的なスタイリング */
+        .problem-item {
+            width: 100%;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* 解答エリアの展開アニメーション */
+        .answer-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            opacity: 0;
+        }
+
+        .problem-item.active .answer-content {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 14px;
+        }
+
+        /* 矢印アイコンの回転（レイアウトに干渉しないように絶対位置もしくはその場回転） */
+        .toggle-icon {
+            transition: transform 0.25s ease;
+        }
+        .problem-item.active .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased py-16 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-2xl mx-auto">
+        <!-- ヘッダー -->
+        <header class="mb-12">
+            <p class="text-[10px] font-bold tracking-[0.2em] text-blue-500/80 uppercase mb-3">Biology Writing Practice</p>
+            <h1 class="text-2xl sm:text-3xl font-light tracking-tight text-slate-900">
+                生物 <span class="font-bold">論述演習</span> 20問
+            </h1>
+            <p class="text-xs text-slate-400 mt-3 font-light leading-relaxed">
+                各問題を選択すると解答が表示されます。繰り返し解いて、論述力を身につけましょう。
+            </p>
+            
+            <div class="mt-6 flex gap-3">
+                <button onclick="toggleAll(true)" class="text-[11px] font-medium text-slate-500 hover:text-slate-900 transition-colors">すべて展開</button>
+                <span class="text-slate-300 text-xs">/</span>
+                <button onclick="toggleAll(false)" class="text-[11px] font-medium text-slate-500 hover:text-slate-900 transition-colors">すべて折りたたむ</button>
+            </div>
+        </header>
+
+        <!-- メインコンテンツ（余計なアニメーションや装飾的な変化を全て排除） -->
+        <main class="space-y-4">
+            
+            <!-- 問1 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問1（長崎大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            多様な生物群は、30数億年前の原始地球に誕生した共通の祖先から進化してきたものと考えられる。この根拠となる、細菌からヒトに至る地球上の生物に共通な特徴を3つあげ、あわせて80字以内で説明せよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            すべての生物は、細胞膜で囲まれた細胞を基本単位とし、エネルギーを利用して生命活動を行うとともに、DNAを遺伝情報として用いて自己と同じ形質をもつ子をつくる。（78字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問2 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問2（北海道大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            原核細胞と真核細胞の相違点を50字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            核やミトコンドリアなどの細胞小器官が、原核細胞には存在しないが、真核細胞には存在する。（43字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問3 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問3（神戸大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            真核細胞では、核以外にもいくつかの細胞小器官がある。このような細胞小器官の中で動物細胞と植物細胞に共通にみられるものの名称を1つあげ、その役割を50字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            ミトコンドリアは、呼吸により有機物を分解してエネルギーを取り出し、ATPの合成を行う役割をもつ。（48字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問4 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問4（岩手大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            細胞説とはどのような説か。30字以内で説明せよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            すべての細胞は、細胞を基本単位としてできているという説。（28字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問5 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問5（鳥取大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            独立栄養生物と従属栄養生物の違いは何か。70字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            独立栄養生物は、外界から取り入れた無機物から有機物を合成して生活するが、従属栄養生物は、ほかの生物が合成した有機物を取り入れて生活する。（68字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問6 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問6（岡山大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            ATPがエネルギーの通貨として用いられる理由を、ATPの構造に基づいて40字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            ATPは、分子内に多量のエネルギーを蓄えている高エネルギーリン酸結合をもつから。（40字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問7 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問7（群馬大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            触媒とは何か。40字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            それ自身は変化せず、ほかの物質の化学反応を促進するはたらきをもつ物質である。（38字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問8 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問8（山梨大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            光合成と呼吸の間では、化学反応の面で、共通点がいくつかあるのに対して相違点もある。それぞれについて、おもなものを1点ずつあげ、あわせて80字以内で答えよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            光合成と呼吸は、いずれも反応の過程で酵素がはたらき、ATPが合成される反応であるが、光合成は有機物を合成する同化であり、呼吸は有機物を分解する異化である。（77字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問9 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問9（早稲田大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            DNAの構造について 70字以内で説明せよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            DNAは2本のヌクレオチド鎖がらせん状にねじれた二重らせん構造をとり、二重らせんの内側では、AとT、CとGがそれぞれ相補的に結合している。（69字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問10 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問10（東京慈恵医大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            DNAが半保存的に複製されることは、生物にとってどのような意義があるか。80字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            母細胞のもつ2本鎖DNAと同じ塩基配列をもつ新しいDNAが2本つくられるので、体細胞分裂では母細胞の遺伝情報を娘細胞に正確に伝えることが可能となる。（74字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問11 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問11（横浜市立大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            細胞周期のS期だけで起こる現象を説明するとともに、その意義を60字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            S期にはDNAの複製が起こる。これにより、分裂期において母細胞と同じDNAを2つの娘細胞へ分配することができる。（56字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問12 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問12（愛媛大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            細胞周期の分裂期は、4つの時期に分けられる。この4つの時期とそれぞれの時期の細胞にみられる変化のようすをあわせて80字以内で説明せよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            前期には、染色体が凝縮してひも状になり、中期には細胞の赤道面に染色体が並ぶ。後期には染色体が2つに分離して両極に移動し、終期には細胞質分裂が起こる。（74字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問13 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問13（甲南大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            体細胞分裂の過程を観察する手順のうち、固定を行う理由とその方法について60字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            固定は、組織を酢酸やエタノールに浸すことにより、細胞の構造を生きていた時の状態で保存するために行う。（50字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問14 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問14（順天堂大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            タマネギの根端を用いて、顕微鏡により体細胞分裂を観察する際に、根端を60℃の4%塩酸に3分間ほど浸すのはなぜか。40字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            細胞間の接着物質を溶かし、細胞どうしを離れやすい状態にするため。（32字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問15 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問15（神戸大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            ゲノムとは何か。30字以内で答えよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            ゲノムとは1個の生殖細胞に含まれる遺伝情報全体のことである。（30字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問16 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問16（高知大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            DNAの遺伝情報からタンパク質がつくられるまでの過程を、80字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            DNAの塩基配列が転写されてmRNAが合成された後、mRNAの塩基配列がアミノ酸配列に翻訳され、アミノ酸どうしが結合してタンパク質が合成される。（72字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問17 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問17（岩手医大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            アンチコドンとは何か。60字以内で説明せよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            アンチコドンとは、tRNAの塩基配列のうち、mRNA ofのコドンと相補的に結合する3つの塩基配列のことである。（53字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問18 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問18（大阪教育大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            遺伝暗号はなぜ3塩基の組み合わせでできているのか。2塩基の組み合わせの場合と比較して100字以内で述べよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            タンパク質を構成するアミノ酸は20種類あるが、塩基は4種類である。2塩基の組み合わせでは16種類のアミノ酸しか指定できないが、3塩基の組み合わせでは64種類となり、すべてのアミノ酸を指定できるから。（99字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問19 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問19（京都府立医大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            同一個体の細胞は、すべて同じ遺伝子をもつにもかかわらず、形やはたらきが異なるものが存在する。この現象はどのようにして起こると考えられているか。40字以内で書け。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            細胞によって発現する遺伝子が異なり、合成されるタンパク質も異なるため。（35字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問20 -->
+            <div class="problem-item py-4 cursor-pointer" onclick="toggleAnswer(this)">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold tracking-wider text-blue-500/80">問20（大分医大ほか）</span>
+                        <h2 class="text-[15px] font-medium text-slate-800 leading-relaxed">
+                            だ腺染色体にみられるパフの部分ではどのような現象が起き、その結果どのような物質がつくられているか。30字以内で説明せよ。
+                        </h2>
+                    </div>
+                    <div class="toggle-icon mt-1.5 text-slate-400 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="answer-content">
+                    <div class="overflow-hidden">
+                        <div class="border-l-2 border-blue-500/30 pl-4 py-1 text-[14px] leading-relaxed text-slate-600 font-light">
+                            パフでは遺伝情報の転写が起こり、mRNAが合成されている。（29字）
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 単一問題の表示切り替え
+        function toggleAnswer(element) {
+            element.classList.toggle('active');
+        }
+
+        // 全展開・全閉
+        function toggleAll(open) {
+            const items = document.querySelectorAll('.problem-item');
+            items.forEach(item => {
+                if (open) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
