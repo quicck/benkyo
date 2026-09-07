@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽出された文章一覧と日本語訳</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fef7ff;
+            color: #1d1b20;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
+            opacity: 0;
+        }
+        .md3-item {
+            background-color: #f3edf7;
+            color: #1d1b20;
+            transition: all 0.4s cubic-bezier(0.2, 0.0, 0, 1.0);
+        }
+        .md3-item:hover {
+            background-color: #e8def8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 selection:bg-[#e8def8] selection:text-[#1d1b20]">
+
+    <div class="w-full max-w-3xl my-6 animate-fade-in" style="animation-delay: 0.1s;">
+        <div class="relative">
+            <input type="text" id="search-input" placeholder="英文や日本語訳で検索..." 
+                class="w-full py-3.5 px-5 pl-12 rounded-full bg-[#f3edf7] text-[#1d1b20] placeholder-[#49454f] focus:outline-none focus:bg-[#e8def8] transition-all text-base shadow-sm">
+            <svg class="absolute left-4 top-4 w-5 h-5 text-[#49454f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <main class="w-full max-w-3xl flex-grow mb-16">
+        <div id="sentence-list" class="space-y-4">
+            <!-- Items will be dynamically populated via JavaScript -->
+        </div>
+    </main>
+
+    <script>
+        const rawText = `
+Lesson 1 
+1
+It’s raining. But is it pouring: zaa-zaa? Or shito-shito? Or potsuri-potsuri? 
+These words, onomatopoeia, evoke images in our minds. Our ALT will guide us through 
+the world of onomatopoeia.
+Good morning. Welcome to the exciting world of onomatopoeia! Maybe you are 
+wondering, “What’s that fancy word?” Well, it’s basically about sounds — like buzz for a 
+bee or splash for water. (1)Onomatopoeia helps us create vivid images in our minds.
+(2)Japanese is famous for having a wide range of onomatopoeic words. You often 
+come across them in manga, anime, and even in the names of snacks. Snack names often 
+include words like saku-saku, pari-pari, and fuwa-fuwa. When you hear saku-saku, what 
+comes to mind? Maybe cookies. And pari-pari? Perhaps rice crackers. What about fuwa-
+fuwa? Probably something soft, like a pancake.
+(3)Using these words truly adds flavor to our lives. When you hear these words, 
+you may want to eat something delicious. Onomatopoeia is all around us and adds a 
+touch of magic to our language and experiences. (4)It makes our everyday life more 
+exciting.
+Onomatopoeia is something special in the world of words. For most words, there 
+is no natural connection between their sounds and meanings. For example, the word for 
+a cat doesn’t have to be cat; it could be neko, like in Japanese. But in the case of 
+onomatopoeia, there is a close connection between sounds and meanings. This means 
+that onomatopoeia can help people understand each other across language boundaries.
+Let’s compare onomatopoeic pairs in Japanese and English in Table 1. You will Lesson 1 
+2
+notice that some of the sounds are quite similar. (5)But this is not always the case.
+Actually, onomatopoeic words with similar sounds in Japanese and English are 
+rather rare. (6)In fact, most onomatopoeic words sound different in the two languages. 
+Check out the examples in Table 2.
+(7)At first, speakers of Japanese may find English onomatopoeia rather strange. 
+As you get used to it, it will start to appeal to your senses. So, give it a try, and you’ll start 
+to enjoy and understand it better over time.
+The difference between Japanese and English onomatopoeia goes beyond just 
+sounds. In Japanese, verbs are often paired with onomatopoeic words. They act like 
+adverbs to describe manners of action. (8)As you can see in Table 3, the basic verb aruku, 
+plus an onomatopoeic word to modify it, shows its unique manner of walking. On the other 
+hand, English has a variety of verbs to describe walking.
+You can find similar differences in expressions of laughter. Take a look at Table 
+4.
+Well, class, that’s it for today. We have seen that Japanese and English use 
+onomatopoeia in their own unique ways. Language is like a colorful mosaic, and 
+onomatopoeia is one of its brightest pieces. Let’s continue exploring the world of 
+onomatopoeia! (9)There’s always something new to discover. Lesson 2 
+Ikee Rikako began to swim at a very young age. At age 18, she was already a 
+famous competitive swimmer. However, her life had its share of ups and downs. Here’s 
+her story.
+“Swimming has always been my passion,” Ikee Rikako once said. From a young 
+age, she showed extraordinary talent in swimming. She set record after record and made 
+a name for herself in the sport. (10)Her achievements in swimming made her a rising star. 
+She said, “I’ve always loved the water. It has become my second home.”
+At age 18, Ikee won six gold medals at the 2018 Asian Games in Indonesia. 
+Everything was going well for her. She never imagined that her journey was about to take 
+an unexpected turn.
+In early 2019, she was not feeling well at the training camp in Australia, so she 
+came back to Japan for a physical checkup. (11)The doctor told her that she had leukemia, 
+and she was hospitalized right away.
+The treatment was very hard on Ikee. (12)It took away so much of her strength 
+that she had to struggle even to get up. She said, “It felt tiring even to be alive.” Once, 
+when she was in great pain, a terrible thought came to her: “I might as well be dead.”
+Ikee lost more than 15 kilograms and felt very weak. However, with the support 
+of many people—her family, friends, and medical staff—she was released from the 
+hospital in December 2019. Even though she still lacked strength, she found joy in her 
+heart. “Now, I can take care of myself and walk without help,” she said. (13)Simply being 
+able to perform everyday tasks brought her happiness. Lesson 2 
+Ikee began physical training. In March 2020, (14)her doctor allowed her to enter 
+a swimming pool for the first time in 406 days. However, she had a hard time keeping up 
+with her teammates. This frustrated her, but she is not the type of person to give up 
+easily. She was determined to move forward.
+(15)At the same time, Ikee realized that she owed a lot to her teammates. On July 
+4, 2020, she received a birthday message from them:
+You can laugh even when things are hard. We love you, Rikako. 
+But now you’re crying because things are hard. 
+Still, we love you, Rikako. 
+You can count on us until the end of time. 
+One day, together again, we will laugh and laugh!
+The meaning of swimming for Ikee totally changed through her hardships. 
+Before her illness, her goal was simple and clear: to become the best swimmer in the 
+world. She said, “I assumed I could just focus on swimming and live as I pleased. My only 
+goal was to become stronger.”
+As she recovered from her illness, Ikee discovered a new sense of self. She said, 
+“I’ve been thinking a lot about my hardships. Did I learn anything from that experience? 
+Yes, I can now empathize with so many people. Just being alive is an extraordinary 
+experience.” With these thoughts, she hopes to inspire people by showing that she has 
+returned to swimming.
+In August 2020, Ikee made her comeback at a competitive swimming meet. In Lesson 2 
+October of the same year, she took part in Japan’s Inter College Swimming 
+Championships. She finished fourth in the women’s 50-meter freestyle but this was a 
+remarkable achievement for her. It was only her second swimming meet since her release 
+from the hospital in December 2019.
+Ikee said, “To overcome adversity, we need hope more than anything else.” She 
+added, “A flickering flame of hope in the distance allows us to move forward, regardless 
+of the challenges.”
+(16)Her determination in the face of adversity inspires us all to overcome our 
+own challenges. Through her comeback, she has become a symbol of hope. (17)Her story 
+has been serving, and will continue to serve, as an example of the extraordinary power of 
+the human spirit.
+. Lesson 3 
+6
+For Miyazaki Kensuke, art is a way to share happiness with people all over the world. 
+(18)He sees life as a journey to discover an answer to the question: Who am I as a person 
+and as an artist?
+I’ve always loved painting. During a spring break in high school, I visited 
+Belgium for two weeks. I spent my time painting on the streets. (19)People who 
+passed by seemed happy to see my work, even though I couldn’t understand their 
+language. I realized the power of art to bring people together.
+In college, I had a dream. (20)I wanted people all over the world to recognize 
+me as a great artist. After graduating, I went to London to become famous.
+In London, I lived and worked part-time in a guest house. I didn’t have much 
+money. No gallery accepted my paintings.
+My street artist friends and I thought it was cool to look angry. They were 
+expressing their anger at social injustice, and their anger was real. (21)But I was from 
+an ordinary family living an ordinary life. I wasn’t angry at all.
+I was in London for two years, but still I wasn’t a famous artist. I decided I had 
+to find a different way of expressing myself.
+In London, I happened to watch a TV program about a school for orphans and 
+street children in Nairobi, Kenya. (22)The children looked unhappy. I suddenly felt 
+an urge to go to Kenya and paint something for those children.
+It wasn’t easy, but finally in 2006, I got to Kenya, found the school, and was able 
+to paint for the children. I painted an angry dragon. I was happy with it, but a teacher Lesson 3 
+7
+complained, “The children are frightened by the dragon. Some of them refuse to come
+to school.” The children thought that it was a big snake. They did not know that 
+dragons are imaginary.
+I asked them, “What would you like me to paint?”
+“Lions!” “Baobabs!”
+I asked the children to help me, and we had a lot of fun painting together. 
+According to the teachers, the children became more active than before.
+That was a turning point in my career. Creating happiness through painting in 
+collaboration with others is my thing. I made up my mind to do a painting project every 
+year in different parts of the world.
+In 2011, after the Great East Japan Earthquake, I joined a volunteer group in 
+Sendai. Because schools were closed, children had nothing to do. They looked bored. 
+I thought my painting project might cheer them up. I started working with these 
+children. We painted the walls of a school.
+A barber in Ofunato, Iwate, asked me to paint a sign for his shop. I not only 
+made the sign but also painted his whole shop in bright colors!
+I had doubts about the usefulness of my art project, but I did not want to think 
+that art has no power in the face of disaster. (23)Money and supplies that people donate 
+can be of great help. But working together on a painting and sharing the joy of creation 
+can also help. People can laugh and smile even in the worst conditions.
+(24)In 2017, I found myself in Mariupol, Ukraine. A war was going on. It was Lesson 3 
+8
+a very dangerous place. People were dying every day. (25)I saw shell holes everywhere 
+and buildings destroyed by bombs.
+Mariupol was not a safe place for an art project. But to my surprise, when I 
+started painting, children came out of nowhere to join me.
+We painted a big mitten. The idea is based on a popular Ukrainian story, The
+Mitten. In the story, one snowy night, an old man drops his mitten. A mouse, a frog, 
+a rabbit, a fox, a wolf, and many other animals climb into the mitten to stay warm.
+In our painting, you see people from all over the world sharing the warmth of a 
+huge mitten. It is decorated with Easter eggs which represent life and hope. Our 
+painting shows that people’s warm hearts can hatch the egg of hope and bring a peaceful 
+life to us all.
+I still do not have a clear answer to the question: Who am I as a person and as an 
+artist? But one thing has become clear: my art has the power to make people “super 
+happy.” Lesson 4 
+Plastic is one of the major causes of ocean pollution. While he was still a high school 
+student in the Netherlands, Boyan Slat decided to do something about it.
+In 2011, when I was 16, I went diving in Greece. I was excited to experience 
+the beautiful ocean. However, it was totally different from my expectations: I saw more 
+plastic waste than fish. I asked myself, “Why can’t we just clean this up?” Maybe I 
+was being naive, but I decided to give it a try.
+By 2013, I had founded an NPO, The Ocean Cleanup. Our mission is to 
+remove plastic from the oceans. Our target is a huge area in the North Pacific Ocean, 
+one of the major sites of plastic waste accumulation.
+(26)After some difficulties, we got our system to work in 2021. Two boats 
+collect plastic by pulling a barrier through the water. The waste is pulled out and taken 
+to shore for recycling.
+We are still at the pilot stage, but we are making progress. We’ve removed more 
+than 0.2 percent of the plastic in the target area. (27)We still don’t know exactly how 
+long the project will take. However, at this rate it will take us 500 years. There must 
+be a better way.
+A better way to stop polluting the oceans with plastic would be to simply reduce 
+the use of plastic.
+(28)Since the introduction of plastics in the first half of the 20th
+ century, the 
+demand has increased rapidly. About 400 million tons of plastic is produced each year. 
+It weighs more than 1,000 Empire State Buildings. And somewhere between 9 million Lesson 4 
+and 14 million tons is believed to enter rivers, lakes, and oceans each year.
+(29)Reducing the amount of plastic we use will be difficult because we cannot do 
+without plastic in our daily lives. As the world’s population increases and more people 
+start to enjoy modern life, the demand for plastic will naturally grow. (30)According to 
+some researchers, the use of plastic will become three times greater by 2060.
+Canada and the EU have banned “single use” of certain plastic items. But this 
+will reduce consumption only in a small way. It will be nearly impossible to reduce 
+plastic use as a whole.
+Now, you may wonder if there is any effective way to reduce plastic pollution. 
+One way is to improve waste management. (31)People in Europe, the United States, 
+Japan, and South Korea are among the heaviest users of plastic. (32)They consume 
+about one-third of the global total. (33)However, these countries are responsible for only 
+around one percent of what flows into the ocean. (34)This is partly due to their systems 
+for waste collection and disposal.
+Waste management, however, is not so effective in many other countries in Asia, 
+as well as in West Africa and Latin America. They are the plastic pollution hot spots of 
+the world.
+Ideally, every city in the world should have good garbage collection and disposal 
+systems. But waste management is costly. Improving systems could take many years. 
+In the meantime, thousands of tons of plastic continue to flow into the ocean every day 
+through rivers. Lesson 4 
+We looked at more than 100,000 of the world’s rivers. We found that nearly 80 
+percent of all plastic flowing into the ocean comes from just 1,000 of those rivers: just 
+one percent.
+This fact pointed us toward a better way to clean the oceans. (35)While we wait 
+for the world to build better waste management systems, we can focus on rivers. We can 
+turn off the tap.
+The Ocean Cleanup is already working on 10 rivers in countries like Indonesia, 
+Malaysia, Vietnam, the Dominican Republic, and the United States.
+Our latest site is the Río Motagua in Guatemala. In the first three weeks alone, 
+we collected 816 tons of trash. (36)Of this amount, 272 tons was plastic. This is more 
+than all of the plastic waste that flows into the ocean from France in one year.
+Plastic pollution harms the environment, damages the economy, and can 
+threaten the health of people in coastal areas. (37)Plastic is one of the biggest threats 
+our oceans face today.
+Reducing plastic use is good for the environment, but it is difficult. This 
+doesn’t mean that there is nothing we can do about it. We know effective solutions 
+exist.
+Collecting plastic in rivers is the most economical method to reach our goal. 
+But there is no time to waste. Lesson 4 
+(38)Jane Goodall is famous not only for her work with chimpanzees but also for her effort to conserve 
+nature. Here, Ken interviews her about her life and work.
+Ken : Dr. Goodall, thank you for taking time for this interview. I know that you spent many years 
+studying chimpanzees in Africa. When did you first decide to go to Africa?
+Jane : It was after I read the Doctor Dolittle and the Tarzan books. When I was 11, I knew that 
+somehow I would go to Africa to live with animals, study them, and write books about them.
+Ken : I’m sure there are lots of young people who want to work with animals someday. How can 
+they prepare themselves?
+Jane : There are a lot of things you can do in order to understand animals. It is very important 
+that you watch them and observe their behavior. It is also important that you write notes and ask 
+questions. If you are really determined, you’ll have to work really hard. Take advantage of every 
+opportunity, and don’t give up.
+Ken : You did a lot of fieldwork, observing chimpanzees in the wild. Are they in any way like 
+humans?
+Jane : (39)Chimps and humans have a lot in common, sharing 98.6 percent of DNA. Their brains 
+are very much like ours and much of their behavior is like ours. The members of a chimp family are 
+very close, often helping one another. They can feel sad, happy, afraid, and angry.
+Ken : What about their character—I mean, are they friendly? Are they cruel?
+Jane : They are usually friendly, but they can be cruel, just like humans.
+Ken : Really? Lesson 4 
+Jane : The males sometimes attack chimps from another community to protect their territories. 
+But they can be very kind and loving too. (40)Once, when he was about three years old, a chimp 
+called Mel lost his mother and was left alone. We all thought he’d die. But, to our surprise, a 12-
+year-old male chimp called Spindle took care of him.
+Ken : In what way?
+Jane : (41)Mel would ride on his back and share his nest at night. He shared his food if Mel asked 
+for it. Chimps can indeed be loving and caring.
+Ken : You travel all over the world, giving talks about the conservation of nature. Do you have 
+any comment?
+Jane : (42)Yes, we humans must understand that wild animals have the right to live. They need 
+wild places. Besides, there are some kinds of living things that we must not destroy. Many drugs 
+for human diseases come from plants and insects. (43)When we destroy a wild area, maybe we are 
+destroying the cure for cancer without knowing it.
+Ken : I see.
+Jane : Everything in nature is connected. Plants and animals make up a whole pattern of life. 
+(44)If we destroy that pattern, all kinds of things can go wrong.
+Ken : Could you say more about that?
+Ken : Sure. One time in England, rabbits were destroying farmers’ grain. The farmers killed the 
+rabbits. Then foxes didn’t have enough to eat and they started killing the farmers’ chickens. 
+(45)The farmers then killed the foxes, and rats quickly increased in number and destroyed just as much 
+grain as the rabbits had eaten. We humans are in danger of destroying our environment and 
+ourselves along with it.
+Ken : Are you worried about our future?
+Jane : Yes, I am. (46)But my hope lies in young people. That’s why I started Roots & Shoots. It 
+began with a group of high school students in Tanzania in 1991. (47)It is called Roots & Shoots 
+because roots can work their way through rocks to reach water. And shoots can break through a wall 
+to reach the sunlight. The rocks and wall are the problems humans have caused to our earth.
+Ken : Is it a kind of club for young people?
+Jane : Yes. We now have groups all over the world and each group chooses three projects: one to 
+help people, one to help animals, one to help the environment. The world is a better place when a 
+sad person smiles at you, when a dog wags its tail for you, or when you give water to a thirsty plant. 
+(48)That’s what Roots & Shoots is all about.
+Ken : Some final words?
+Jane : (49)People should think about the consequences of the little choices they make each day. 
+What to buy? What to eat? What to wear? You are just one person, but (50)what you do affects 
+the whole world. The changes you make may be small, but if a thousand, then a million, finally a 
+billion people all make those changes, this is going to make a big difference.
+Ken : Dr. Goodall, thank you very much for sharing your ideas with us.`;
+
+        const translations = {
+            1: "オノマトペは、私たちの心の中に鮮やかなイメージを作り出すのに役立ちます。",
+            2: "日本語は、幅広いオノマトペの言葉があることで有名です。",
+            3: "これらの言葉を使うことは、私たちの生活に真の味わいを加えます。",
+            4: "それは私たちの日常生活をよりエキサイティングなものにしてくれます。",
+            5: "しかし、常にそうとは限りません。",
+            6: "実際、日本語と英語で似たような音を持つオノマトペの言葉はむしろ稀です。",
+            7: "最初、日本語の話者は英語のオノマトペをかなり奇妙に感じるかもしれません。慣れてくると、それはあなたの感覚に訴えかけるようになるでしょう。",
+            8: "表3に見られるように、基本的な動詞の「あるく」にそれを修飾するオノマトペの言葉を加えると、その独特な歩き方の様子が表されます。",
+            9: "常に発見すべき何か新しいものがあります。",
+            10: "水泳での彼女の功績は、彼女を新進気鋭のスターにしました。",
+            11: "医師は彼女に白血病であると告げた",
+            12: "それは彼女のあまりにも多くの体力を奪い、起き上がるのさえ苦労しなければなりませんでした。",
+            13: "日常の作業をこなすことができるようになるだけで、彼女に幸福がもたらされました。",
+            14: "医師は彼女が406日ぶりにプールに入ることを許可しました。",
+            15: "同時に、イケエはチームメイトに多くを負っていることに気づきました。",
+            16: "逆境に直面した彼女の決意は、私たち全員が自身の困難を乗り越えるよう刺激を与えてくれます。",
+            17: "彼女の物語は、人間精神の並外れた力の例として役立っており、これからも役立ち続けるでしょう。",
+            18: "He sees life as a journey to discover an answer to the question",
+            19: "通り過ぎる人々は",
+            20: "世界中の人々から偉大なアーティストとして認められたかったのです。",
+            21: "しかし私は平凡な生活を送る平凡な家庭の出身でした。",
+            22: "子どもたちは不幸そうに見えました。",
+            23: "人々が寄付するお金や物資は大いに役立ちます。",
+            24: "2017年、私はウクライナのマリウポリにいました。",
+            25: "至る所に砲弾の穴や爆弾で破壊された建物が見えました。",
+            26: "いくつかの困難の末、私たちは2021年にシステムを機能させることができました。",
+            27: "プロジェクトにどれくらい時間がかかるのか、私たちはまだ正確にはわかりません。",
+            28: "20世紀前半のプラスチックの導入以来、需要は急速に増加しています。",
+            29: "私たちが使うプラスチックの量を減らすことは、日常生活でプラスチックなしでは済まないため困難です。",
+            30: "一部の研究者によると、プラスチックの使用量は2060年までに3倍に増加します。",
+            31: "ヨーロッパ、アメリカ、日本、韓国の人々は、プラスチックの最も重い使用者の一つです。",
+            32: "彼らは世界全体の約3分の1を消費しています。",
+            33: "しかし、これらの国々は海に流れ込むものの約1パーセントにしか責任がありません。",
+            34: "これは部分的に彼らのごみ収集・処分システムのおかげです。",
+            35: "世界がより良い廃棄物管理システムを構築するのを待つ間、私たちは川に焦点を当てることができます。",
+            36: "この量のうち、272トンがプラスチックでした。",
+            37: "プラスチックは、私たちの海が今日直面している最大の脅威の一つです。",
+            38: "ジェーン・グドールは、チンパンジーとの仕事だけでなく、自然保護の取り組みでも有名です。",
+            39: "チンパンジーと人間には多くの共通点があり、DNAの98.6パーセントを共有しています。",
+            40: "かつて、3歳くらいの頃、メルという名のチンパンジーが母親を失い、一人ぼっちになりました。",
+            41: "メルは彼の背中に乗って夜は巣を共にしていました。",
+            42: "はい、私たち人間は野生動物には生きる権利があることを理解しなければなりません。",
+            43: "野生の地域を破壊するとき、私たちは知らず知らずのうちにガンの治療法を破壊しているのかもしれません。",
+            44: "もし私たちがそのパターンを破壊すれば、あらゆる事態が狂い始める可能性があります。",
+            45: "農民たちはその後キツネを殺し、ネズミが急増してウサギが食べたのと同じ量の穀物を破壊しました。",
+            46: "しかし私の希望は若い人たちにあります。",
+            47: "それは根が水にたどり着くために岩を突き進むことができるからです。",
+            48: "それがルーツ＆シューツのすべてです。",
+            49: "人々は毎日行うちょっとした選択の結果について考えるべきです。",
+            50: "あなたが行うことは世界全体に影響を与えます。"
+        };
+
+        function cleanText(txt) {
+            return txt.replace(/\s+/g, ' ').trim();
+        }
+
+        function parseSentences(text) {
+            let results = [];
+            for (let i = 1; i <= 50; i++) {
+                let marker = `(${i})`;
+                let startIndex = text.indexOf(marker);
+                if (startIndex === -1) continue;
+                
+                let contentStart = startIndex + marker.length;
+                let subText = text.substring(contentStart);
+                
+                let sentence = "";
+                if (i === 7) {
+                    let firstDot = subText.indexOf('.');
+                    if (firstDot !== -1) {
+                        let secondSub = subText.substring(firstDot + 1);
+                        let secondDot = secondSub.indexOf('.');
+                        if (secondDot !== -1) {
+                            sentence = subText.substring(0, firstDot + 1 + secondDot + 1);
+                        } else {
+                            sentence = subText;
+                        }
+                    } else {
+                        sentence = subText;
+                    }
+                } else if (i === 11 || i === 19) {
+                    let commaIdx = subText.indexOf(',');
+                    if (commaIdx !== -1) {
+                        sentence = subText.substring(0, commaIdx + 1);
+                    } else {
+                        sentence = subText;
+                    }
+                } else if (i === 18) {
+                    let colonIdx = subText.indexOf(':');
+                    if (colonIdx !== -1) {
+                        sentence = subText.substring(0, colonIdx + 1);
+                    } else {
+                        sentence = subText;
+                    }
+                } else {
+                    let dotIdx = subText.indexOf('.');
+                    if (dotIdx !== -1) {
+                        sentence = subText.substring(0, dotIdx + 1);
+                    } else {
+                        sentence = subText;
+                    }
+                }
+                
+                results.push({
+                    number: i,
+                    text: cleanText(sentence),
+                    translation: translations[i] || ""
+                });
+            }
+            return results;
+        }
+
+        const allSentences = parseSentences(rawText);
+
+        function renderList(items) {
+            const container = document.getElementById('sentence-list');
+            container.innerHTML = '';
+
+            if (items.length === 0) {
+                container.innerHTML = '<div class="text-center py-8 text-[#49454f]">一致する文章が見つかりませんでした</div>';
+                return;
+            }
+
+            items.forEach((item, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'md3-item p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in';
+                wrapper.style.animationDelay = `${(index % 12) * 0.04}s`;
+
+                const leftCol = document.createElement('div');
+                leftCol.className = 'flex items-center space-x-4 w-full';
+
+                const badge = document.createElement('span');
+                badge.className = 'w-10 h-10 rounded-full bg-[#e8def8] text-[#1d1b20] font-medium text-sm flex items-center justify-center flex-shrink-0';
+                badge.textContent = item.number;
+
+                const textGroup = document.createElement('div');
+                textGroup.className = 'flex flex-col space-y-1 w-full overflow-hidden';
+
+                const enP = document.createElement('p');
+                enP.className = 'text-base sm:text-lg font-normal text-[#1d1b20] leading-snug';
+                enP.textContent = item.text;
+
+                const jaP = document.createElement('p');
+                jaP.className = 'text-sm sm:text-base font-normal text-[#49454f] leading-snug';
+                jaP.textContent = item.translation;
+
+                textGroup.appendChild(enP);
+                textGroup.appendChild(jaP);
+
+                leftCol.appendChild(badge);
+                leftCol.appendChild(textGroup);
+
+                wrapper.appendChild(leftCol);
+                container.appendChild(wrapper);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderList(allSentences);
+
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const filtered = allSentences.filter(item => 
+                    item.text.toLowerCase().includes(query) || 
+                    item.translation.toLowerCase().includes(query) ||
+                    item.number.toString() === query
+                );
+                renderList(filtered);
+            });
+        });
+    </script>
+</body>
+</html>
